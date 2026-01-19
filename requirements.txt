@@ -3,32 +3,32 @@
 # =============================================================================
 
 # Web Framework
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-pydantic==2.5.3
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.3
 
-# Data Science & ML
-pandas==2.2.0
-numpy==1.26.3
-scikit-learn==1.4.0
-joblib==1.3.2
+# Data Science & ML (versions avec wheels pré-compilés)
+pandas>=2.1.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+joblib>=1.3.2
 
 # Visualization (pour les notebooks)
-matplotlib==3.8.2
-seaborn==0.13.1
+matplotlib>=3.8.0
+seaborn>=0.13.0
 
 # Scheduling (pour le réentraînement automatique)
-schedule==1.2.1
+schedule>=1.2.0
 
 # HTTP Client (pour les tests)
-httpx==0.26.0
-requests==2.31.0
+httpx>=0.26.0
+requests>=2.31.0
 
 # Utilitaires
-python-multipart==0.0.6
-python-dotenv==1.0.0
-jinja2==3.1.2
+python-multipart>=0.0.6
+python-dotenv>=1.0.0
+jinja2>=3.1.2
 
 # Statistiques avancées (optionnel, pour l'EDA)
-scipy==1.12.0
-statsmodels==0.14.1
+scipy>=1.12.0
+statsmodels>=0.14.0
