@@ -1,6 +1,6 @@
 # 🌽 Prédiction du Rendement du Maïs en Afrique
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green.svg)](https://fastapi.tiangolo.com)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -26,10 +26,28 @@ L'agriculture est le pilier économique de nombreux pays africains. La prédicti
 ## 🏗️ Structure du Projet
 
 ```
-PROJ/
+project/
 ├── 📁 data/                          # Données
 │   ├── hvstat_africa_data_v1.0.csv   # Dataset original
 │   └── df_clean_maize.csv            # Données nettoyées
+│
+├── 📁 docs/                           # Documentation
+│   └── rapport.pdf                   # Rapport de projet
+│
+├── 📁 ml_models_pkg/                  # Modèles entraînés
+│   ├── final_model.pkl               # Modèle final déployé
+│   ├── model_metadata.pkl            # Métadonnées du modèle
+│   ├── feature_names.pkl             # Noms des features
+│   ├── ridge_regression_model.pkl    # Modèle Ridge (.pkl)
+│   ├── ridge_regression_model.joblib # Modèle Ridge (.joblib)
+│   ├── random_forest_model.pkl       # Modèle Random Forest
+│   ├── gb_model.pkl                  # Modèle Gradient Boosting
+│   ├── gb_feature_names.pkl          # Features Gradient Boosting
+│   ├── scaler.pkl                    # Scaler (.pkl)
+│   ├── scaler.joblib                 # Scaler (.joblib)
+│   ├── model_comparison.png          # Graphique comparaison modèles
+│   ├── predictions_comparison.png    # Graphique prédictions
+│   └── error_distribution.png        # Distribution des erreurs
 │
 ├── 📁 notebooks/                      # Jupyter Notebooks
 │   ├── EDA.ipynb                     # Analyse exploratoire
@@ -38,15 +56,8 @@ PROJ/
 │   ├── Gradient_Boost.ipynb          # Modèle Gradient Boosting
 │   └── model_selection.ipynb         # Comparaison & sélection finale
 │
-├── 📁 ml_models_pkg/                  # Modèles entraînés
-│   ├── final_model.pkl               # Modèle final déployé
-│   ├── model_metadata.pkl            # Métadonnées du modèle
-│   ├── ridge_regression_model.pkl    # Modèle Ridge
-│   ├── random_forest_model.pkl       # Modèle Random Forest
-│   ├── gb_model.pkl                  # Modèle Gradient Boosting
-│   └── scaler.pkl                    # Scaler pour normalisation
-│
-├── 📁 logs/                           # Logs de réentraînement
+├── 📁 templates/                      # Templates HTML
+│   └── index.html                    # Interface web de prédiction
 │
 ├── 📄 app.py                          # API FastAPI
 ├── 📄 retrain_model.py               # Script de réentraînement
@@ -55,6 +66,10 @@ PROJ/
 ├── 📄 Dockerfile                     # Image Docker API
 ├── 📄 Dockerfile.retrainer           # Image Docker Retrainer
 ├── 📄 docker-compose.yml             # Orchestration Docker
+├── 📄 Procfile                       # Configuration Heroku/Render
+├── 📄 runtime.txt                    # Version Python pour déploiement
+├── 📄 .python-version                # Version Python (Render)
+├── 📄 DEPLOYMENT_GUIDE.md            # Guide de déploiement
 └── 📄 README.md                      # Ce fichier
 ```
 
@@ -64,8 +79,7 @@ PROJ/
 
 ```bash
 # 1. Cloner le repository
-git clone https://github.com/votre-groupe/maize-yield-prediction.git
-cd maize-yield-prediction
+git clone https://github.com/Folfed/Project_certification.git
 
 # 2. Créer un environnement virtuel
 python -m venv venv
@@ -124,7 +138,7 @@ print(response.json())
 #     "predicted_production": 925.0,
 #     "confidence": "Élevé",
 #     "unit": "tonnes/hectare",
-#     "model_used": "Gradient Boosting"
+#     "model_used": "Random Forest"
 # }
 ```
 
@@ -185,11 +199,11 @@ crontab -e
 
 | Modèle | R² Score | MAE (t/ha) | RMSE (t/ha) |
 |--------|----------|------------|-------------|
-| Ridge Regression | ~0.65 | ~0.45 | ~0.58 |
-| Random Forest | ~0.78 | ~0.35 | ~0.48 |
-| **Gradient Boosting** | **~0.80** | **~0.33** | **~0.45** |
+| Ridge Regression | ~0.35 | ~0.48 | ~0.70 |
+| Gradient Boosting | ~0.42 | ~0.43 | ~0.65 |
+| **Random Forest** | **0.4425** | **0.4215** | **0.6344** |
 
-> ⭐ Le modèle **Gradient Boosting** a été sélectionné comme modèle final.
+> ⭐ Le modèle **Random Forest** a été sélectionné comme modèle final.
 
 ## 📈 Variables Utilisées
 
