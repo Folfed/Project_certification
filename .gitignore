@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Data (grandes fichiers)
+# data/*.csv  # Décommenter si vous ne voulez pas tracker les données
+
+# Models (optionnel - décommenter si vous ne voulez pas tracker les modèles)
+# ml_models_pkg/*.pkl
+# ml_models_pkg/*.joblib
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/

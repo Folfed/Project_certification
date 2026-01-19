@@ -1,0 +1,78 @@
+# =============================================================================
+# 🐳 Docker Compose - Stack complète
+# =============================================================================
+# Orchestre l'API, le scheduler de réentraînement et les services associés
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # 🌽 API de Prédiction
+  # ==========================================================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maize-prediction-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro          # Données en lecture seule
+      - ./ml_models_pkg:/app/ml_models_pkg  # Modèles (lecture/écriture pour retraining)
+      - ./logs:/app/logs             # Logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Africa/Nairobi            # Fuseau horaire Afrique de l'Est
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - maize-network
+
+  # ==========================================================================
+  # 🔄 Service de Réentraînement Automatique
+  # ==========================================================================
+  retrainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.retrainer
+    container_name: maize-retrainer
+    volumes:
+      - ./data:/app/data:ro
+      - ./ml_models_pkg:/app/ml_models_pkg
+      - ./logs:/app/logs
+    environment:
+      - RETRAIN_INTERVAL_HOURS=24    # Réentraînement toutes les 24 heures
+      - TZ=Africa/Nairobi
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - maize-network
+
+  # ==========================================================================
+  # 📊 Monitoring (Optionnel)
+  # ==========================================================================
+  # Décommenter pour activer le monitoring avec Prometheus/Grafana
+  
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+  #   networks:
+  #     - maize-network
+
+networks:
+  maize-network:
+    driver: bridge
+
+volumes:
+  model_data:
+  log_data:
