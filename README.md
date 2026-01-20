@@ -32,7 +32,9 @@ project/
 │   └── df_clean_maize.csv            # Données nettoyées
 │
 ├── 📁 docs/                           # Documentation
-│   └── rapport.pdf                   # Rapport de projet
+│    ├── rapport.pdf                   # Rapport de projet
+|    └── Prédiction Rendement Maïs Afrique.pptx # Slides PowerPoint
+│ 
 │
 ├── 📁 ml_models_pkg/                  # Modèles entraînés
 │   ├── final_model.pkl               # Modèle final déployé
